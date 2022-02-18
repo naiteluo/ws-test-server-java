@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package com.example;
+
+option java_package = "com.example.protos";
+option java_outer_classname = "MyProtobufData";
+
+message MessageData {
+    string text = 1;
+    uint32 seed = 2;
+    optional bytes data = 3;
+}
