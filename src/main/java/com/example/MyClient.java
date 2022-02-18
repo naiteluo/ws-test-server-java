@@ -2,9 +2,10 @@ package com.example;
 
 import java.net.URI;
 import java.nio.ByteBuffer;
-import java.util.Map;
 
 import com.example.protos.MyProtobufData;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import org.java_websocket.client.WebSocketClient;
@@ -47,6 +48,15 @@ public class MyClient extends WebSocketClient {
         System.out.println("[Client " + clientName + "] received bytes: " + bytes);
         try {
             MyProtobufData.MessageData data = MyProtobufData.MessageData.parseFrom(bytes);
+
+            System.out.println("text = " + data.getText());
+            System.out.println("seed = " + data.getSeed());
+            System.out.println("payload = " + data.getPayload());
+
+            JsonObject j = JsonParser.parseString(data.getPayload().toStringUtf8()).getAsJsonObject();
+
+            System.out.println("payload(parsed) = " + j);
+
             System.out.println("[Client " + clientName + "] received bytes and parsed: " + data.getText());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();

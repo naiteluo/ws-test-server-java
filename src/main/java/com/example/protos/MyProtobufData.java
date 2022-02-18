@@ -37,15 +37,15 @@ public final class MyProtobufData {
     int getSeed();
 
     /**
-     * <code>optional bytes data = 3;</code>
-     * @return Whether the data field is set.
+     * <code>optional bytes payload = 3;</code>
+     * @return Whether the payload field is set.
      */
-    boolean hasData();
+    boolean hasPayload();
     /**
-     * <code>optional bytes data = 3;</code>
-     * @return The data.
+     * <code>optional bytes payload = 3;</code>
+     * @return The payload.
      */
-    com.google.protobuf.ByteString getData();
+    com.google.protobuf.ByteString getPayload();
   }
   /**
    * Protobuf type {@code com.example.MessageData}
@@ -61,7 +61,7 @@ public final class MyProtobufData {
     }
     private MessageData() {
       text_ = "";
-      data_ = com.google.protobuf.ByteString.EMPTY;
+      payload_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -108,7 +108,7 @@ public final class MyProtobufData {
             }
             case 26: {
               bitField0_ |= 0x00000001;
-              data_ = input.readBytes();
+              payload_ = input.readBytes();
               break;
             }
             default: {
@@ -193,23 +193,23 @@ public final class MyProtobufData {
       return seed_;
     }
 
-    public static final int DATA_FIELD_NUMBER = 3;
-    private com.google.protobuf.ByteString data_;
+    public static final int PAYLOAD_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString payload_;
     /**
-     * <code>optional bytes data = 3;</code>
-     * @return Whether the data field is set.
+     * <code>optional bytes payload = 3;</code>
+     * @return Whether the payload field is set.
      */
     @java.lang.Override
-    public boolean hasData() {
+    public boolean hasPayload() {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>optional bytes data = 3;</code>
-     * @return The data.
+     * <code>optional bytes payload = 3;</code>
+     * @return The payload.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getData() {
-      return data_;
+    public com.google.protobuf.ByteString getPayload() {
+      return payload_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -233,7 +233,7 @@ public final class MyProtobufData {
         output.writeUInt32(2, seed_);
       }
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeBytes(3, data_);
+        output.writeBytes(3, payload_);
       }
       unknownFields.writeTo(output);
     }
@@ -253,7 +253,7 @@ public final class MyProtobufData {
       }
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, data_);
+          .computeBytesSize(3, payload_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -274,10 +274,10 @@ public final class MyProtobufData {
           .equals(other.getText())) return false;
       if (getSeed()
           != other.getSeed()) return false;
-      if (hasData() != other.hasData()) return false;
-      if (hasData()) {
-        if (!getData()
-            .equals(other.getData())) return false;
+      if (hasPayload() != other.hasPayload()) return false;
+      if (hasPayload()) {
+        if (!getPayload()
+            .equals(other.getPayload())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -294,9 +294,9 @@ public final class MyProtobufData {
       hash = (53 * hash) + getText().hashCode();
       hash = (37 * hash) + SEED_FIELD_NUMBER;
       hash = (53 * hash) + getSeed();
-      if (hasData()) {
-        hash = (37 * hash) + DATA_FIELD_NUMBER;
-        hash = (53 * hash) + getData().hashCode();
+      if (hasPayload()) {
+        hash = (37 * hash) + PAYLOAD_FIELD_NUMBER;
+        hash = (53 * hash) + getPayload().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -435,7 +435,7 @@ public final class MyProtobufData {
 
         seed_ = 0;
 
-        data_ = com.google.protobuf.ByteString.EMPTY;
+        payload_ = com.google.protobuf.ByteString.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -470,7 +470,7 @@ public final class MyProtobufData {
         if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.data_ = data_;
+        result.payload_ = payload_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -527,8 +527,8 @@ public final class MyProtobufData {
         if (other.getSeed() != 0) {
           setSeed(other.getSeed());
         }
-        if (other.hasData()) {
-          setData(other.getData());
+        if (other.hasPayload()) {
+          setPayload(other.getPayload());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -667,44 +667,44 @@ public final class MyProtobufData {
         return this;
       }
 
-      private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+      private com.google.protobuf.ByteString payload_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>optional bytes data = 3;</code>
-       * @return Whether the data field is set.
+       * <code>optional bytes payload = 3;</code>
+       * @return Whether the payload field is set.
        */
       @java.lang.Override
-      public boolean hasData() {
+      public boolean hasPayload() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>optional bytes data = 3;</code>
-       * @return The data.
+       * <code>optional bytes payload = 3;</code>
+       * @return The payload.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString getData() {
-        return data_;
+      public com.google.protobuf.ByteString getPayload() {
+        return payload_;
       }
       /**
-       * <code>optional bytes data = 3;</code>
-       * @param value The data to set.
+       * <code>optional bytes payload = 3;</code>
+       * @param value The payload to set.
        * @return This builder for chaining.
        */
-      public Builder setData(com.google.protobuf.ByteString value) {
+      public Builder setPayload(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        data_ = value;
+        payload_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bytes data = 3;</code>
+       * <code>optional bytes payload = 3;</code>
        * @return This builder for chaining.
        */
-      public Builder clearData() {
+      public Builder clearPayload() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        data_ = getDefaultInstance().getData();
+        payload_ = getDefaultInstance().getPayload();
         onChanged();
         return this;
       }
@@ -776,10 +776,10 @@ public final class MyProtobufData {
   static {
     java.lang.String[] descriptorData = {
       "\n\035src/main/resources/data.proto\022\013com.exa" +
-      "mple\"E\n\013MessageData\022\014\n\004text\030\001 \001(\t\022\014\n\004see" +
-      "d\030\002 \001(\r\022\021\n\004data\030\003 \001(\014H\000\210\001\001B\007\n\005_dataB$\n\022c" +
-      "om.example.protosB\016MyProtobufDatab\006proto" +
-      "3"
+      "mple\"K\n\013MessageData\022\014\n\004text\030\001 \001(\t\022\014\n\004see" +
+      "d\030\002 \001(\r\022\024\n\007payload\030\003 \001(\014H\000\210\001\001B\n\n\010_payloa" +
+      "dB$\n\022com.example.protosB\016MyProtobufDatab" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -790,7 +790,7 @@ public final class MyProtobufData {
     internal_static_com_example_MessageData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_MessageData_descriptor,
-        new java.lang.String[] { "Text", "Seed", "Data", "Data", });
+        new java.lang.String[] { "Text", "Seed", "Payload", "Payload", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

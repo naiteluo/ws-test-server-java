@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,7 +10,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.example.protos.MyProtobufData;
+import com.google.gson.JsonObject;
+import com.google.protobuf.ByteString;
 
+import org.java_websocket.enums.ReadyState;
 import org.java_websocket.server.WebSocketServer;
 
 /**
@@ -48,9 +52,21 @@ public class App {
                 @Override
                 public void run() {
                     server.broadcast("Hi of String!");
-                    MyProtobufData.MessageData data = MyProtobufData.MessageData.newBuilder().setText("Hi of Protobuf!")
-                            .setSeed(123).build();
-                    server.broadcast(data.toByteArray());
+                    try {
+                        JsonObject payloadJSON = new JsonObject();
+                        payloadJSON.addProperty("name", "mob");
+                        payloadJSON.addProperty("age", 16);
+                        payloadJSON.addProperty("bio", "muda muda muda");
+                        ByteString payloadJSONBytesString = ByteString.copyFrom(payloadJSON.toString(), "utf-8");
+                        MyProtobufData.MessageData data = MyProtobufData.MessageData.newBuilder()
+                                .setText("Hi of Protobuf!")
+                                .setSeed(123)
+                                .setPayload(payloadJSONBytesString)
+                                .build();
+                        server.broadcast(data.toByteArray());
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }
             }, 1000, 5000);
         }
@@ -79,9 +95,14 @@ public class App {
             }
             try {
                 System.out.println("Create client and connect.");
-                MyClient client = new MyClient(new URI("ws://localhost:" + port), clientName);
+                MyClient client = new MyClient(new URI("ws://localhost:" + port),
+                        clientName);
                 client.connect();
-            } catch (URISyntaxException e) {
+                while (!client.getReadyState().equals(ReadyState.OPEN)) {
+                    System.out.println(clientName + " connecting... " + client.getReadyState());
+                    Thread.sleep(1000);
+                }
+            } catch (URISyntaxException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
