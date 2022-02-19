@@ -2,6 +2,8 @@ package com.example;
 
 import java.net.URI;
 import java.nio.ByteBuffer;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
 
 import com.example.protos.MyProtobufData;
 import com.google.gson.JsonObject;
@@ -15,6 +17,10 @@ public class MyClient extends WebSocketClient {
 
     private String clientName;
 
+    private Lock lock;
+
+    private List<JsonObject> dataList;
+
     public MyClient(URI serverURI) {
         super(serverURI);
     }
@@ -22,6 +28,13 @@ public class MyClient extends WebSocketClient {
     public MyClient(URI serverUri, String clientName) {
         super(serverUri);
         this.clientName = clientName;
+    }
+
+    public MyClient(URI serverUri, String clientName, List<JsonObject> dataList, Lock isWaitingDataLock) {
+        super(serverUri);
+        this.clientName = clientName;
+        this.lock = isWaitingDataLock;
+        this.dataList = dataList;
     }
 
     @Override
@@ -58,6 +71,13 @@ public class MyClient extends WebSocketClient {
             System.out.println("payload(parsed) = " + j);
 
             System.out.println("[Client " + clientName + "] received bytes and parsed: " + data.getText());
+
+            this.dataList.add(j);
+
+            synchronized (lock) {
+                lock.notify();
+            }
+
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
