@@ -58,19 +58,19 @@ public class MyClient extends WebSocketClient {
 
     @Override
     public void onMessage(ByteBuffer bytes) {
-        System.out.println("[Client " + clientName + "] received bytes: " + bytes);
+        // System.out.println("[Client " + clientName + "] received bytes: " + bytes);
         try {
             MyProtobufData.MessageData data = MyProtobufData.MessageData.parseFrom(bytes);
 
-            System.out.println("text = " + data.getText());
-            System.out.println("seed = " + data.getSeed());
-            System.out.println("payload = " + data.getPayload());
+            // System.out.println("text = " + data.getText());
+            // System.out.println("seed = " + data.getSeed());
+            // System.out.println("payload = " + data.getPayload());
 
             JsonObject j = JsonParser.parseString(data.getPayload().toStringUtf8()).getAsJsonObject();
 
-            System.out.println("payload(parsed) = " + j);
+            // System.out.println("payload(parsed) = " + j);
 
-            System.out.println("[Client " + clientName + "] received bytes and parsed: " + data.getText());
+            // System.out.println("[Client " + clientName + "] received bytes and parsed: " + data.getText());
 
             this.dataList.add(j);
 

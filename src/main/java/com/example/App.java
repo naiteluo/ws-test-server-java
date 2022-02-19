@@ -84,22 +84,38 @@ public class App {
         clientThread.start();
 
         int failCount = 0;
-        while (failCount < 5) {
-            synchronized (isWaitingDataLock) {
-                isWaitingDataLock.wait();
-                int index = dataList.size() - 1;
-                JsonObject j = dataList.get(index);
-                System.out.println(j.get("age").getAsInt());
-                if (j.get("age").getAsInt() == 17) {
-                    System.out.println("Test pass!");
-                    break;
+        int lastIndex = -1;
+        int time = 0;
+        boolean isPass = false;
+        while (failCount < 5 && time < 20000) {
+            // synchronized (isWaitingDataLock) {
+            // isWaitingDataLock.wait();
+            int index = dataList.size() - 1;
+            if (index >= 0) {
+                if (index != lastIndex) {
+                    lastIndex = index;
+                    JsonObject j = dataList.get(index);
+                    System.out.println(j.get("age").getAsInt());
+                    if (j.get("age").getAsInt() == 17) {
+                        isPass = true;
+                        break;
+                    } else {
+                        failCount++;
+                    }
                 }
-                failCount++;
-                isWaitingDataLock.lock();
             }
+            // isWaitingDataLock.lock();
+            Thread.sleep(1000);
+            time += 1000;
+            // }
         }
 
-        System.out.println("end");
+        if (isPass) {
+            System.out.println("Test pass!");
+        } else {
+            System.out.println("Test fails!");
+        }
+
     }
 }
 
